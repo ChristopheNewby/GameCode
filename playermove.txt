@@ -1,0 +1,42 @@
+//This moves the player
+class PlayerMovement : ZilchComponent
+{
+    [Property]
+    var Speed : Real = 0.25;
+    function Initialize(init : CogInitializer)
+    {
+        Zero.Connect(this.Space, Events.LogicUpdate, this.OnLogicUpdate);
+    }
+
+    function OnLogicUpdate(event : UpdateEvent)
+    {
+        //When W is pressed the player moves up!
+        if (Zero.Keyboard.KeyIsDown(Keys.W))
+        {
+            var temp = this.Owner.Transform.Translation;
+            temp.Y +=this.Speed;
+            this.Owner.Transform.Translation = temp;
+        }
+        //When S is pressed the player moves down!
+        if (Zero.Keyboard.KeyIsDown(Keys.S))
+        {
+            var temp = this.Owner.Transform.Translation;
+            temp.Y -=this.Speed;
+            this.Owner.Transform.Translation = temp;
+        }
+        //When A is pressed the player moves to the left!
+        if (Zero.Keyboard.KeyIsDown(Keys.A))
+        {
+            var temp = this.Owner.Transform.Translation;
+            temp.X -=this.Speed;
+            this.Owner.Transform.Translation = temp;
+        }
+        //When D is pressed the player moves to the right!
+        if (Zero.Keyboard.KeyIsDown(Keys.D))
+        {
+            var temp = this.Owner.Transform.Translation;
+            temp.X +=this.Speed;
+            this.Owner.Transform.Translation = temp;
+        }
+    }
+}

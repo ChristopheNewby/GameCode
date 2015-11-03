@@ -1,0 +1,35 @@
+class CollisionLogic : ZilchComponent
+{
+    function Initialize(init : CogInitializer)
+    {
+        Zero.Connect(this.Owner, Events.CollisionStarted, this.OnCollisionStarted);
+        
+        Zero.Connect(this.Owner, Events.CollisionEnded, this.OnCollisionEnded);
+    }
+
+    function OnCollisionStarted(event : CollisionEvent)
+    {
+        var otherObject = event.OtherObject;
+        
+        if (otherObject.Name == "Box")
+        {
+            var orange = Real4(1.0, 0.5, 0.0, 1.0);
+            
+            this.Owner.Sprite.Color = orange;
+        }
+        
+        if (otherObject.Name == "Big Box")
+        {
+            var blue = Real4(0.0, 0.5, 1.0, 1.0);
+            
+            this.Owner.Sprite.Color = blue;
+        }
+    }
+    
+    function OnCollisionEnded(event : CollisionEvent)
+    {
+        var white = Real4(1.0, 1.0, 1.0, 1.0);
+        
+        this.Owner.Sprite.Color = white;
+    }
+}

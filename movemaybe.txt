@@ -1,0 +1,29 @@
+//Moving objects w/o user input. Needs work
+class MoveScript : ZilchComponent
+{
+    var Time : Integer = 0;
+    function Initialize(init : CogInitializer)
+    {
+        Zero.Connect(this.Space, Events.LogicUpdate, this.OnLogicUpdate);
+    }
+
+    function OnLogicUpdate(event : UpdateEvent)
+    {
+        var colorTime = 30;
+        this.Owner.ForceEffect.Active = true;
+        this.Time += 1;
+        this.Owner.Sprite.Color = Real4(1, 0, 1, 1);
+        if(this.Time >= colorTime)
+        {
+            this.Owner.Sprite.Color = Real4(1, 1, 0, 1);
+        }
+        if(this.Time == 2*colorTime)
+        {
+            this.Owner.Sprite.Color = Real4(0, 0, 0, 1);
+        }
+        if(this.Time == 3*colorTime)
+        {
+            this.Time = 0;
+        }
+    }
+}

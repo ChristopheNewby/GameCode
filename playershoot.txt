@@ -1,0 +1,42 @@
+//This is a shooting code for the player
+class ShootEm : ZilchComponent
+{
+    var Direction : Real3 = Real3(0, -10, 0);
+    
+    function Initialize(init : CogInitializer)
+    {
+        Zero.Connect(Zero.Keyboard, Events.KeyDown, this.OnKeyDown);
+    }
+
+    function OnKeyDown(event : KeyboardEvent)
+    {
+        //When space is pressed
+        
+        if (event.Key == Keys.Space)
+        {
+            //Spawn at objects current position
+            var spawnPosition = this.Owner.Transform.Translation;
+            //Find the ball Archetype
+            var archetypeToSpawn = Archetype.Find("Bullet");
+            //Pass the archetype position to the Space to make our object
+            var createdBullet = this.Space.CreateAtPosition(archetypeToSpawn, spawnPosition);
+            createdBullet.RigidBody.Velocity = this.Direction;
+        }
+        if(event.Key == Keys.Up)
+        {
+            this.Direction = Real3(0, 10, 0);
+        }
+        if(event.Key == Keys.Left)
+        {
+            this.Direction = Real3(-10, 0, 0);
+        }
+        if(event.Key == Keys.Down)
+        {
+            this.Direction = Real3(0, -10, 0);
+        }
+        if(event.Key == Keys.Right)
+        {
+            this.Direction = Real3(10, 0, 0);
+        }
+    }
+}

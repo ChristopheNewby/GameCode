@@ -1,0 +1,59 @@
+class GameLogic : ZilchComponent
+{
+    var Level1: Level = Level.Find("Level1");
+    var Level2: Level = Level.Find("Level2");
+    var Level3: Level = Level.Find("Level3");
+    
+    [Static]
+    var Orange: Real4 = Real4(1.0, 0.27, 0.0, 1.0);
+    [Static]
+    var Blue: Real4 = Real4(0.0, 0.27, 1.0, 1.0);
+    [Static]
+    var Green: Real4 = Real4(0.27, 1.0, 0.0, 1.0);
+    [Static]
+    var Pink: Real4 = Real4(1.0, 0.0, 0.27, 1.0);
+    
+    function Initialize(init : CogInitializer)
+    {
+        Zero.Connect(Zero.Keyboard, Events.KeyUp, this.OnKeyUp);
+    }
+
+    function OnKeyUp(event : KeyboardEvent)
+    {
+        if (event.Key == Keys.Space)
+        {
+            var space = this.LoadLevel(this.Space.CurrentLevel);
+            //this.Space.ReloadLevel();
+            this.Space.FindFirstObjectByName("Sprite").Sprite.Color = GameLogic.Orange;
+        }
+        
+        else if (event.Key == Keys.One)
+        {
+            var space = this.LoadLevel(this.Level1);
+            //this.Space.LoadLevel(this.Level1);
+            this.Space.FindFirstObjectByName("Sprite").Sprite.Color = GameLogic.Blue;
+        }
+        
+        else if (event.Key == Keys.Two)
+        {
+            var space = this.LoadLevel(this.Level2);
+            //this.Space.LoadLevel(this.Level2);
+            this.Space.FindFirstObjectByName("Sprite").Sprite.Color = GameLogic.Green;
+        }
+        
+        else if (event.Key == Keys.Three)
+        {
+            var space = this.LoadLevel(this.Level3);
+            //this.Space.LoadLevel(this.Level3);
+            this.Space.FindFirstObjectByName("Sprite").Sprite.Color = GameLogic.Pink;
+        }
+    }
+    
+    function LoadLevel(level : Level) : Space
+    {
+        var space = this.GameSession.CreateSpace(Archetype.Find("Space"));
+        space.LoadLevel(level);
+        this.Space.Destroy();
+        return space;
+    }
+}

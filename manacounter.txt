@@ -1,0 +1,22 @@
+class ManaCounter : ZilchComponent
+{
+    [Property]
+    var Mana : Integer = 10;
+    var Text : String = "Mana: 10";
+    //var Timer : Real = 0;
+    
+    function Initialize(init : CogInitializer)
+    {
+        Zero.Connect(this.Space, Events.LogicUpdate, this.OnLogicUpdate);
+    }
+
+    function OnLogicUpdate(event : UpdateEvent)
+    {
+        var temp = "Mana: `this.Mana`";
+        this.Owner.SpriteText.Text = temp;
+        if(this.Mana < 0)
+        {
+            this.Mana = 0;
+        }
+    }
+}

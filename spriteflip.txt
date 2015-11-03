@@ -1,0 +1,39 @@
+class SpriteFlip : ZilchComponent
+{
+    function Initialize(init : CogInitializer)
+    {
+        Zero.Connect(Zero.Keyboard, Events.KeyDown, this.OnKeyDown);
+    }
+
+    function OnKeyDown(event : KeyboardEvent)
+    {
+        if (event.Key == Keys.W)
+        {
+            //This pulls a different image from the spritesource for correct turning 
+            this.Owner.Sprite.SpriteSource = SpriteSource.Find("testsprite2");
+            //This flips the sprite across the X axis when W is pressed.
+            this.Owner.Sprite.FlipY = true;
+        }
+        if (event.Key ==Keys.S)
+            {
+            //This will turn off the sprite flip reverting it back to normal.
+            this.Owner.Sprite.FlipY = false;
+            }
+        
+        if (event.Key == Keys.A)
+        {
+            //This pulls a different image from the spritesource for correct turning 
+            this.Owner.Sprite.SpriteSource = SpriteSource.Find("testsprite");
+            //This will make the sprite flip across the Y axis when A is pressed.
+            this.Owner.Sprite.FlipX = true;
+            
+        }
+        if (event.Key == Keys.D)
+        {
+            //This will make the sprite flip back over the Y axis when D is flipped.
+            this.Owner.Sprite.FlipX = false;
+        }
+        
+        
+    }
+}
